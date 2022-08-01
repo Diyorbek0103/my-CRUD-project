@@ -39,7 +39,7 @@ const ConnectCounter = (props) => {
                 <h5>Step: </h5>
                 <input
                   value={value}
-                  onChange={(e) => setValue(Number(e.target.value))}
+                  onChange={(e) => setValue(parseInt(e.target.value))}
                   type="number"
                   placeholder="enter number"
                   className="ms-2 form-control"
