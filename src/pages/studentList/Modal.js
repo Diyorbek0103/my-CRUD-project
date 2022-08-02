@@ -1,0 +1,101 @@
+import React, { useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { addstudentAction } from "../../redux/actions/studentAction";
+const Modal = () => {
+  const myForm = useRef(null);
+
+  const { studentData } = useSelector((state) => state.studentCrudReducer);
+  const dispatch = useDispatch();
+
+  const saveStudent = (e) => {
+    e.preventDefault();
+    const students = {
+      firstname: e.target.firstname.value,
+      lastname: e.target.lastname.value,
+      age: e.target.age.value,
+      edutype: e.target.edutype.value,
+    };
+    if (e.target.firstname.value !== "" && e.target.edutype.value !== "") {
+      studentData.push(students);
+      dispatch(addstudentAction());
+
+      toast.success("Talaba qoshildi");
+    } else {
+      toast.error("Formani toldiring !!!");
+    }
+    e.target.reset();
+  };
+  return (
+    <div>
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <form ref={myForm} onSubmit={saveStudent}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title" id="exampleModalLabel">
+                  Talaba qo'shish
+                </h4>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <input
+                  placeholder="Ismingizni kriting..."
+                  name="firstname"
+                  className="form-control mb-2"
+                  type="text"
+                />
+                <input
+                  placeholder="Familiyangizni kriting..."
+                  name="lastname"
+                  className="form-control mb-2"
+                  type="text"
+                />
+                <input
+                  placeholder="Yoshingizni kriting..."
+                  name="age"
+                  className="form-control mb-2"
+                  type="number"
+                />
+                <select className="form-control" name="edutype">
+                  <option value="">O'qish turi</option>
+                  <option value="Grand">Grand</option>
+                  <option value="Kontrakt">Kontrakt</option>
+                </select>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Yopish
+                </button>
+                <button
+                  type="submit"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
+                  Qo'shish
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;

@@ -4,4 +4,7 @@ export const actionTypes = {
   INCREMENT: "INCREMENT",
   DECREMENT: "DECREMENT",
   RESET: "RESET",
+  DELETE:"DELETE",
+  EDIT:"EDIT",
+  ADD_STUDENT:"ADD_STUDENT"
 };
