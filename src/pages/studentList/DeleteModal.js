@@ -25,7 +25,7 @@ const DeleteModal = () => {
       <div
         className="modal fade"
         id="exampleModal_delete"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
