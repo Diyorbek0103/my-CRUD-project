@@ -10,12 +10,12 @@ const Layout = ({ children }) => {
     },
     {
       title: "Connect-counter",
-      icon: <i class="bi bi-dice-5"></i>,
+      icon: <i className="bi bi-dice-5"></i>,
       path: "/connectCounter",
     },
     {
       title: "Hook-counter",
-      icon: <i class="bi bi-dice-4"></i>,
+      icon: <i className="bi bi-dice-4"></i>,
       path: "/hookCounter",
     },
     {

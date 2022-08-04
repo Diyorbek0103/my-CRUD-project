@@ -1,24 +1,29 @@
-import React, { useContext } from "react";
+import React from "react";
 import Layout from "../../components/layout/Layout";
 import { useSelector, useDispatch } from "react-redux";
-import "./studentList.scss";
-import { deleteAction } from "../../redux/actions/studentAction";
-import { toast } from "react-toastify";
-
 import Modal from "./Modal";
+import DeleteModal from "./DeleteModal";
+import {
+  deleteStudentAction,
+  editStudentAction,
+} from "../../redux/actions/studentAction";
+import EditModal from "./EditModal";
+
 const StudentList = () => {
-  const { studentData } = useSelector((state) => state.studentCrudReducer);
   const dispatch = useDispatch();
 
-  const deleteFunction = (index) => {
-    studentData.splice(index, 1);
-    dispatch(deleteAction());
-    toast.success("Muvofaqiyoatli o'chirildi");
+  const { studentData } = useSelector((state) => state.studentCrudReducer);
+
+  const deleteStudentFunction = (index) => {
+    dispatch(deleteStudentAction(index));
+  };
+
+  const editStudentFunction = (index) => {
+    dispatch(editStudentAction(index));
   };
 
   return (
     <Layout>
-      <Modal />
       <div className="row">
         <div className="header">
           <h2>Student-List</h2>
@@ -35,7 +40,7 @@ const StudentList = () => {
             data-bs-target="#exampleModal"
             className="btn btn-success"
           >
-            Talaba qo'shish<i class="ms-2 bi bi-person-plus-fill"></i>
+            Talaba qo'shish<i className="ms-2 bi bi-person-plus-fill"></i>
           </button>
         </div>
         <div className="col-xl-12">
@@ -51,36 +56,58 @@ const StudentList = () => {
               </tr>
             </thead>
             <tbody>
-              {studentData?.map((student, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{student.firstname}</td>
-                  <td>{student.lastname}</td>
-                  <td>{student.age}</td>
-                  <td>
-                    {student.edutype === "Kontrakt" ? (
-                      <span className="kontrakt">{student.edutype}</span>
-                    ) : (
-                      <span className="grand">{student.edutype}</span>
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => deleteFunction(index)}
-                      className="btn btn-danger"
-                    >
-                      <i class="bi bi-trash"></i>
-                    </button>
-                    <button className="btn btn-warning ms-5">
-                      <i class="bi bi-pen"></i>
-                    </button>
+              {studentData && studentData.length > 0 ? (
+                studentData.map((student, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{student.firstname}</td>
+                    <td>{student.lastname}</td>
+                    <td>{student.age}</td>
+                    <td>
+                      <p
+                        className={
+                          student.edutype === "Kontrakt"
+                            ? "bg-warning"
+                            : "bg-success"
+                        }
+                      >
+                        {student.edutype}
+                      </p>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => deleteStudentFunction(index)}
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal_delete"
+                        className="btn btn-danger"
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                      <button
+                        onClick={() => editStudentFunction(index)}
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModaledit"
+                        className="btn btn-warning ms-5"
+                      >
+                        <i className="bi bi-pen"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6}>
+                    <h3>Malumot mavjud emas</h3>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
       </div>
+      <Modal />
+      <DeleteModal />
+      <EditModal />
     </Layout>
   );
 };

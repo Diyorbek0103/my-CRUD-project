@@ -1,48 +1,53 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addstudentAction } from "../../redux/actions/studentAction";
-import { toast } from "react-toastify";
-
-const Modal = () => {
-  const { studentData } = useSelector((state) => state.studentCrudReducer);
+import { setEditStudentAction } from "../../redux/actions/studentAction";
+import { actionTypes } from "../../redux/actionTypes/actionTypes";
+const EditModal = () => {
+  const { edit_student_index, edit_student } = useSelector(
+    (state) => state.studentCrudReducer
+  );
   const dispatch = useDispatch();
 
-  const saveStudent = (e) => {
+  //   const removeStudent = () => {
+  //     dispatch({
+  //       type: actionTypes.REMOVE_STUDENT_DATA_EDIT,
+  //     });
+  //   };
+
+  const myForm = useRef(null);
+
+  if (edit_student) {
+    myForm.current.firstname.value = edit_student.firstname;
+    myForm.current.lastname.value = edit_student.lastname;
+    myForm.current.age.value = edit_student.age;
+    myForm.current.edutype.value = edit_student.edutype;
+  }
+  const submitEditData = (e) => {
     e.preventDefault();
-    const newObj = {
-      firstname: e.target.firstname.value,
-      lastname: e.target.lastname.value,
-      age: e.target.age.value,
-      edutype: e.target.edutype.value,
+    const editData = {
+      firstname: myForm.current.firstname.value,
+      lastname: myForm.current.lastname.value,
+      age: myForm.current.age.value,
+      edutype: myForm.current.edutype.value,
     };
-    if (
-      e.target.firstname.value !== "" &&
-      e.target.lastname.value !== "" &&
-      e.target.age.value !== "" &&
-      e.target.edutype.value !== ""
-    ) {
-      dispatch(addstudentAction(newObj));
-    } else {
-      toast.error("Formani to'ldirng !!!");
-    }
-    e.target.reset();
+    dispatch(setEditStudentAction(editData, edit_student_index));
   };
 
   return (
     <div>
       <div
         className="modal fade"
-        id="exampleModal"
+        id="exampleModaledit"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <form onSubmit={saveStudent}>
+        <form onSubmit={submitEditData} ref={myForm}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
                 <h4 className="modal-title" id="exampleModalLabel">
-                  Talaba qo'shish
+                  Talabani tahrirlash
                 </h4>
                 <button
                   type="button"
@@ -87,13 +92,14 @@ const Modal = () => {
                 </button>
 
                 <button
+                  //   onClick={removeStudent}
                   style={{ width: "200px" }}
                   data-bs-dismiss="modal"
                   aria-label="Close"
                   type="submit"
                   className="btn btn-success"
                 >
-                  Qoshish
+                  Saqlash
                 </button>
               </div>
             </div>
@@ -104,4 +110,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default EditModal;
