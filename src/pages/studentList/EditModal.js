@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditStudentAction } from "../../redux/actions/studentAction";
-import { actionTypes } from "../../redux/actionTypes/actionTypes";
+// import { actionTypes } from "../../redux/actionTypes/actionTypes";
 const EditModal = () => {
   const { edit_student_index, edit_student } = useSelector(
     (state) => state.studentCrudReducer

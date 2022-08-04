@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { addstudentAction } from "../../redux/actions/studentAction";
 import { toast } from "react-toastify";
 
 const Modal = () => {
-  const { studentData } = useSelector((state) => state.studentCrudReducer);
   const dispatch = useDispatch();
 
   const saveStudent = (e) => {
