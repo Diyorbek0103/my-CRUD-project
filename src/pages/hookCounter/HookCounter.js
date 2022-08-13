@@ -25,7 +25,7 @@ const HookCounter = () => {
   };
   return (
     <Layout>
-      <div className="row">
+      <div className="row flex-nowrap">
         <div className="col-xl-4 offset-4">
           <div className="card mt-5 text-center">
             <div className="card-header bg-dark text-white text-center">

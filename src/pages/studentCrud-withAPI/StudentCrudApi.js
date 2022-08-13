@@ -63,7 +63,7 @@ const StudentCrudApi = () => {
   return (
     <Layout>
       <div className="Employees">
-        <div className="row mb-4">
+        <div className="row mb-4 flex-nowrap">
           <div className="col-xl-12">
             <div className="d-flex align-items-center justify-content-between">
               <h2>Xodimlar</h2>
