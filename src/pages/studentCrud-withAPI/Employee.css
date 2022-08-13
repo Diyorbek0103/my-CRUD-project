@@ -1,0 +1,17 @@
+.close:hover{
+    background-color: red;
+    color: white;
+
+}
+.close{
+ border: none;
+ border-radius: 5px;
+ width: 40px;
+ transition: linear 0.2s;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.close span{
+    font-size: 30px;
+}

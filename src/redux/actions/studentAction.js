@@ -11,7 +11,9 @@ export const addstudentAction = (newObj) => async (dispatch) => {
       payload: newObj,
     });
 
-    toast.success("Talaba qoshildi");
+    toast.success("Talaba qoshildi",{
+      position:toast.POSITION.BOTTOM_RIGHT
+    });
   } catch (error) {
     dispatch({
       type: actionTypes.LOADING_FALSE,
@@ -49,7 +51,9 @@ export const delete_Student_Action = (index) => async (dispatch) => {
       type: actionTypes.REMOVE_STUDENT_DATA,
     });
 
-    toast.success("Talaba muvofaqiyatli o;chirildi");
+    toast.success("Talaba muvofaqiyatli o;chirildi",{
+      position:toast.POSITION.BOTTOM_RIGHT
+    });
   } catch (error) {
     toast.error("Talaba o'chirilmadi");
     dispatch({
@@ -92,7 +96,9 @@ export const setEditStudentAction =
       //   type: actionTypes.REMOVE_STUDENT_DATA_EDIT,
       // });
 
-      toast.warning("Ma'lumot yangilandi");
+      toast.warning("Ma'lumot yangilandi",{
+        position:toast.POSITION.BOTTOM_RIGHT
+      });
     } catch (error) {
       toast.error("Ma'lumot yangilanmadi");
       dispatch({
@@ -100,3 +106,22 @@ export const setEditStudentAction =
       });
     }
   };
+
+
+  
+export const filterStudentAction = (filteringData) => async (dispatch) => {
+  dispatch({
+    type: actionTypes.LOADING_TRUE,
+  });
+  try {
+    dispatch({
+      type: actionTypes.FILTER_STUDENT,
+      payload: filteringData,
+    });
+
+  } catch (error) {
+    dispatch({
+      type: actionTypes.LOADING_FALSE,
+    });
+  }
+};

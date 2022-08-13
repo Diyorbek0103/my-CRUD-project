@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "./Modal";
@@ -6,13 +6,18 @@ import DeleteModal from "./DeleteModal";
 import {
   deleteStudentAction,
   editStudentAction,
+  filterStudentAction,
 } from "../../redux/actions/studentAction";
 import EditModal from "./EditModal";
 
 const StudentList = () => {
   const dispatch = useDispatch();
 
-  const { studentData } = useSelector((state) => state.studentCrudReducer);
+  const [inputValue, setInputValue] = useState("");
+
+  const { studentData, staticStudents } = useSelector(
+    (state) => state.studentCrudReducer
+  );
 
   const deleteStudentFunction = (index) => {
     dispatch(deleteStudentAction(index));
@@ -22,6 +27,20 @@ const StudentList = () => {
     dispatch(editStudentAction(index));
   };
 
+  const setFilterData = (e) => {
+    setInputValue(e.target.value);
+    let searchText = e.target.value.toLowerCase();
+    let filteringData = staticStudents.filter(
+      (student) =>
+        student.firstname.toLowerCase().includes(searchText) ||
+        student.lastname.toLowerCase().includes(searchText) ||
+        String(student.age).includes(searchText) ||
+        student.edutype.toLowerCase().includes(searchText)
+    );
+
+    dispatch(filterStudentAction(filteringData));
+  };
+
   return (
     <Layout>
       <div className="row">
@@ -29,10 +48,12 @@ const StudentList = () => {
           <h2>Student-List</h2>
           <div>
             <input
+              value={inputValue}
+              onChange={setFilterData}
               placeholder="Qidirish"
               name="input"
               className="form-control"
-              type="text"
+              type="search"
             />
           </div>
           <button

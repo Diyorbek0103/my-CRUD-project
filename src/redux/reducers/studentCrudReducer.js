@@ -21,6 +21,26 @@ const initialState = {
       edutype: "Kontrakt",
     },
   ],
+  staticStudents: [
+    {
+      firstname: "Diyorbek",
+      lastname: "Tojiqulov",
+      age: 20,
+      edutype: "Grand",
+    },
+    {
+      firstname: "Ismoil",
+      lastname: "Ganiev",
+      age: 19,
+      edutype: "Kontrakt",
+    },
+    {
+      firstname: "Jonibek",
+      lastname: "Iskandarov",
+      age: 18,
+      edutype: "Kontrakt",
+    },
+  ],
   loading: true,
   delete_student: null,
   delete_student_index: null,
@@ -46,6 +66,7 @@ export const studentCrudReducer = (state = initialState, action) => {
       return {
         ...state,
         studentData: newStudentData,
+        staticStudents:newStudentData,
       };
 
     case actionTypes.DELETE_STUDENT_INDEX:
@@ -69,6 +90,7 @@ export const studentCrudReducer = (state = initialState, action) => {
       return {
         ...state,
         studentData: newDeleteStudentData,
+        staticStudents:newDeleteStudentData,
         loading: false,
       };
 
@@ -93,6 +115,14 @@ export const studentCrudReducer = (state = initialState, action) => {
       return {
         ...state,
         studentData: neweditdata,
+        staticStudents:neweditdata,
+        loading: false,
+      };
+
+    case actionTypes.FILTER_STUDENT:
+      return {
+        ...state,
+        studentData: payload,
         loading: false,
       };
 

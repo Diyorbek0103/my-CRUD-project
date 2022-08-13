@@ -23,6 +23,11 @@ const Layout = ({ children }) => {
       icon: <i className="fs-4 bi-table"></i>,
       path: "/studentlist",
     },
+    {
+      title: "Employees CRUD with API",
+      icon: <i className="fs-4 bi-table"></i>,
+      path: "/studentCrudAPi",
+    },
   ];
   return (
     <div>

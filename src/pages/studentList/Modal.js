@@ -22,7 +22,9 @@ const Modal = () => {
     ) {
       dispatch(addstudentAction(newObj));
     } else {
-      toast.error("Formani to'ldirng !!!");
+      toast.error("Formani to'ldirng !!!",{
+        position:toast.POSITION.BOTTOM_RIGHT
+      });
     }
     e.target.reset();
   };
